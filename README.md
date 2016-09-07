@@ -81,9 +81,19 @@ Migration files are prefixed with the current `Date` in YYMMDDHHMMSS format
 followed by a migration name of your choosing.
 
 ```bash
-# This will create a file in ./dynomodb-migrations that looks like:
-# 20160906172136_update-users-table.js
 dynograte create-migration --path ./dynomodb-migrations --migration update-users-table
+```
+
+The `create-migration` command will generate a file in `./dynomodb-migrations` that has
+a file name similar to `20160906172136_update-users-table.js` and looks like:
+
+```javascript
+'use strict';
+
+exports.up = (dynamodb) => {
+
+};
+
 ```
 
 ## Tests

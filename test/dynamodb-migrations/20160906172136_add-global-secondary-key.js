@@ -1,5 +1,5 @@
 'use strict';
 
-exports.migrate = (dynamodb) => {
+exports.up = (dynamodb) => {
   return Promise.resolve();
 };
