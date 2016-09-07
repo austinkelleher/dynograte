@@ -39,10 +39,6 @@ return dynograte.migrate({
   dynamodb: dynamodb,
   migrationTableName: 'my-awesome-migration-table',
   migrationPath: './dynamodb-migrations'
-}, (dynamodb) => {
-  // Put your migration code here
-  // and return a promise
-  return Promise.resolve();
 });
 
 ```
@@ -70,7 +66,7 @@ Or a single migration function
 ```javascript
 
 return dynograte.migrate({
-  dynamodb,
+  dynamodb: dynamodb,
   migrationTableName: randomTableName
 }, (dynamodb) => {
   return theBestMigration(dynamodb);

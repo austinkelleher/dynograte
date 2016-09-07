@@ -11,7 +11,8 @@
     "beforeEach": true,
     "afterEach": true,
     "module": true,
-    "__dirname": true
+    "__dirname": true,
+    "exports": true
   },
   "strict": false,
   "globalstrict": true,

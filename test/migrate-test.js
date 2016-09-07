@@ -100,9 +100,7 @@ describe('Migration table test', function() {
       return dynograte.migrate({
         dynamodb,
         migrationTableName: randomTableName,
-        migrationPath: './dynamodb-migrations'
-      }, (dynamodb) => {
-        return _addGlobalSecondaryKey(dynamodb, randomTableName);
+        migrationPath: './test/dynamodb-migrations'
       });
     });
   });
