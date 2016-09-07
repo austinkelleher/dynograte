@@ -1,0 +1,35 @@
+{
+  "name": "dynograte",
+  "version": "0.0.1",
+  "description": "DynamoDB migration tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/austinkelleher/dynograte.git"
+  },
+  "keywords": [
+    "dynamo",
+    "dynamodb",
+    "migration",
+    "database"
+  ],
+  "author": "Austin Kelleher, a@alk.im",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/austinkelleher/dynograte/issues"
+  },
+  "homepage": "https://github.com/austinkelleher/dynograte#readme",
+  "dependencies": {
+    "dynamodb-data-types": "^3.0.0",
+    "node-uuid": "^1.4.7"
+  },
+  "devDependencies": {
+    "argly": "^1.0.0",
+    "aws-sdk": "^2.5.5",
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
+  }
+}

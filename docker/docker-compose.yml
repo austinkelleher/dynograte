@@ -1,0 +1,5 @@
+dynamodb:
+  image: tray/dynamodb-local
+  ports:
+    - "8000"
+  command: -sharedDb
