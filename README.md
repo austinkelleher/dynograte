@@ -77,7 +77,7 @@ return dynograte.migrate({
 ## CLI
 
 Dynograte comes packaged with a CLI, which will auto-generate migration files.
-Migration files are prefixed with the current `Date` in YYMMDDHHMMSS format
+Migration files are prefixed with the current `Date` in YY-MM-DD-HH-MM-SS format
 followed by a migration name of your choosing.
 
 ```bash
@@ -85,7 +85,7 @@ dynograte create-migration --path ./dynomodb-migrations --migration update-users
 ```
 
 The `create-migration` command will generate a file in `./dynomodb-migrations` that has
-a file name similar to `20160906172136_update-users-table.js` and looks like:
+a file name similar to `2016-09-07-10-48-28_update-users-table.js.js` and looks like:
 
 ```javascript
 'use strict';
