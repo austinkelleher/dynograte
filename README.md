@@ -18,7 +18,7 @@ npm install dynograte -g
 ## Features
 
 - Migrating DynamoDB tables from a directory
-- Migration DynamoDB tables from functions
+- Migrating DynamoDB tables from functions
 - Command line tool for auto-generating migration files
 - Reminds you of a dinosaur
 
