@@ -33,12 +33,15 @@ run migration files that do not exist in the migrations table.
 Dynograte can load migrations from a directory
 
 ```javascript
+const path = require('path');
 const dynamodb = new aws.DynamoDB(config.dynamodb);
+
+let migrationDir = path.resolve(__dirname, './dynamodb-migrations');
 
 return dynograte.migrate({
   dynamodb: dynamodb,
   migrationTableName: 'my-awesome-migration-table',
-  migrationPath: './dynamodb-migrations'
+  migrationDir: migrationDir
 });
 
 ```
@@ -81,10 +84,10 @@ Migration files are prefixed with the current `Date` in YY-MM-DD-HH-MM-SS format
 followed by a migration name of your choosing.
 
 ```bash
-dynograte create-migration --path ./dynomodb-migrations --migration update-users-table
+dynograte create --dir ~/Proj/dynomodb-migrations --migration update-users-table
 ```
 
-The `create-migration` command will generate a file in `./dynomodb-migrations` that has
+The `create` command will generate a file in `~/Proj/dynomodb-migrations` that has
 a file name similar to `2016-09-07-10-48-28_update-users-table.js.js` and looks like:
 
 ```javascript

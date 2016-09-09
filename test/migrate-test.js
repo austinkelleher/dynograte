@@ -2,6 +2,7 @@
 'use strict';
 
 const aws = require('aws-sdk');
+const path = require('path');
 const dynograte = require('../');
 const uuid = require('node-uuid');
 const chai = require('chai');
@@ -154,10 +155,12 @@ describe('Migration table test', function() {
     });
 
     it('should migrate from a specified directory of files', () => {
+      let migrationDir = path.resolve(__dirname, './dynamodb-migrations');
+
       return dynograte.migrate({
         dynamodb,
         migrationTableName: randomMigrationTableName,
-        migrationPath: './test/dynamodb-migrations'
+        migrationDir: migrationDir
       });
     });
   });

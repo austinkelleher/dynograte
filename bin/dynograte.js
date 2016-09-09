@@ -10,9 +10,9 @@ let argly = require('argly')
       type: 'string',
       description: 'Show this help message'
     },
-    '--path -p': {
+    '--dir -d': {
       type: 'string',
-      description: 'Path that contains the DynomoDB migrations'
+      description: 'Directory that contains the DynomoDB migrations'
     },
     '--migration -m': {
       type: 'string',
@@ -22,7 +22,7 @@ let argly = require('argly')
   .usage('Usage: dynograte [options]')
   .example(
     'Create a migration file',
-    'dynograte create-migration --path ./dynomodb-migrations --migration update-users-table')
+    'dynograte create --path ~/Proj/dynomodb-migrations --migration update-users-table')
   .validate(function(result) {
     if (result.help) {
       this.printUsage();
