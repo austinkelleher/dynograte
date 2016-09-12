@@ -7,6 +7,7 @@ const uuid = require('node-uuid');
 const chai = require('chai');
 const expect = require('chai').expect;
 const _deleteDynamoTable = require('./util/deleteDynamoTable');
+const _queryFileByName = require('../lib/util/queryFileByName');
 const config = require('../config');
 
 require('chai').should();
@@ -66,6 +67,53 @@ describe('Migration table test', function() {
               expect(alreadyRan).to.equal(false);
             });
           });
+    });
+
+    it('should update `pending`', () => {
+      let fileName = uuid.v4();
+      let fileId;
+
+      return MigrationTable.create(dynamodb, randomTableName)
+        .then(() => {
+          return migrationTable.insert(fileName)
+            .then(id => {
+              fileId = id;
+
+              return _queryFileByName(dynamodb, randomTableName, fileName)
+                .then(data => {
+                  expect(data.Items[0]).to.deep.equal({
+                    filename: {
+                      'S': fileName
+                    },
+                    id: {
+                      'S': fileId
+                    },
+                    pending: {
+                      'BOOL': true
+                    }
+                  });
+                });
+            })
+            .then(() => {
+              return migrationTable.updatePending(fileId, false);
+            })
+            .then(() => {
+              return _queryFileByName(dynamodb, randomTableName, fileName)
+                .then(data => {
+                  expect(data.Items[0]).to.deep.equal({
+                    filename: {
+                      'S': fileName
+                    },
+                    id: {
+                      'S': fileId
+                    },
+                    pending: {
+                      'BOOL': false
+                    }
+                  });
+                });
+            });
+        });
     });
   });
 });

@@ -4,7 +4,8 @@
   "description": "DynamoDB migration tool",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "docker-test": "./start-docker.sh && npm test"
   },
   "repository": {
     "type": "git",
