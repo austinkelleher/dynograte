@@ -1,6 +1,6 @@
 'use strict';
 
-const Dynograte = require('./lib/dynograte');
+const Dynograte = require('./lib/Dynograte');
 
 exports.create = (options) => {
   return new Dynograte(options);
