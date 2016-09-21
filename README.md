@@ -104,9 +104,18 @@ exports.up = (dynamodb) => {
 To run the tests, you can either run docker, or specify your own DynamoDB
 configuration in `config.js`.
 
+Run Docker and tests:
+
 ```bash
-./start-docker && npm test
+npm run docker-test
 ```
+
+Run tests without Docker:
+
+```bash
+npm test
+```
+
 
 `start-docker.sh` generates a `config.js` file that contains the DynamoDB
 configuration. You can also manually create it to include your own custom config:
