@@ -7,6 +7,9 @@
     "test": "mocha",
     "docker-test": "./start-docker.sh && npm test"
   },
+  "bin": {
+    "dynograte": "bin/dynograte"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/austinkelleher/dynograte.git"
