@@ -3,7 +3,7 @@
 
 const aws = require('aws-sdk');
 const MigrationTable = require('../lib/MigrationTable');
-const uuid = require('node-uuid');
+const uuid = require('uuid');
 const chai = require('chai');
 const expect = require('chai').expect;
 const _deleteDynamoTable = require('./util/deleteDynamoTable');
