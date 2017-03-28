@@ -12,6 +12,7 @@ const _putAttrItem = require('../lib/util/putAttrItem');
 const _createDummySchema = require('./util/createDummySchema');
 const _deleteDynamoTable = require('./util/deleteDynamoTable');
 const _addGlobalSecondaryKey = require('./util/addDummyGlobalSecondaryKey');
+const _scanDynamoTable = require('./util/scanDynamoTable');
 const MigrationTableSchema = require('../lib/MigrationTableSchema');
 const config = require('../config');
 
@@ -161,6 +162,42 @@ describe('Migration table test', function() {
         dynamodb,
         migrationTableName: randomMigrationTableName,
         migrationDir: migrationDir
+      });
+    });
+  });
+
+  describe('Failing migrations', () => {
+    let randomMigrationTableName;
+    let schema = MigrationTableSchema;
+
+    beforeEach(() => {
+      randomMigrationTableName = schema.TableName = uuid.v4();
+      return _createDynamoTable(dynamodb, schema);
+    });
+
+    afterEach(() => {
+      return _deleteDynamoTable(dynamodb, randomMigrationTableName)
+        .then(() => {
+          return _deleteDynamoTable(dynamodb, randomTableName);
+        });
+    });
+
+    it('should remove row from dynamodb if a migration fails', () => {
+      let migrationDir = path.resolve(__dirname, './failing-dynamodb-migrations');
+
+      return new Promise((resolve, reject) => {
+        return dynograte.migrate({
+          dynamodb,
+          migrationTableName: randomMigrationTableName,
+          migrationDir: migrationDir
+        }).catch((err) => {
+          expect(err.message).to.equal('This migration failed!');
+          return _scanDynamoTable(dynamodb, randomMigrationTableName)
+            .then((res) => {
+              expect(res.Items.length).to.equal(0);
+              resolve();
+            }).catch(reject);
+        });
       });
     });
   });
