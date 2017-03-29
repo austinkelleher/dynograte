@@ -158,10 +158,26 @@ describe('Migration table test', function() {
     it('should migrate from a specified directory of files', () => {
       let migrationDir = path.resolve(__dirname, './dynamodb-migrations');
 
+      let fileNames = {};
+
       return dynograte.migrate({
         dynamodb,
         migrationTableName: randomMigrationTableName,
         migrationDir: migrationDir
+      }).then(() => {
+        return _scanDynamoTable(dynamodb, randomMigrationTableName)
+          .then((res) => {
+            res.Items.forEach((item) => {
+              const fileName = item.filename.S;
+
+              expect(fileNames[fileName]).to.equal(undefined);
+              expect(item.pending).to.deep.equal({
+                BOOL: false
+              });
+
+              fileNames[fileName] = true;
+            });
+          });
       });
     });
   });
