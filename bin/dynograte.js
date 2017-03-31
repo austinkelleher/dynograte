@@ -22,7 +22,7 @@ let argly = require('argly')
   .usage('Usage: dynograte [options]')
   .example(
     'Create a migration file',
-    'dynograte create --path ~/Proj/dynomodb-migrations --migration update-users-table')
+    'dynograte create --dir ~/Proj/dynomodb-migrations --migration update-users-table')
   .validate(function(result) {
     if (result.help) {
       this.printUsage();
