@@ -8,9 +8,9 @@ docker-compose up -d
 DOCKER_VM_IP=localhost
 
 function find_service_port {
-    service=$1
-    port=$2
-    docker-compose -f docker-compose.yml port $service $port | sed 's/.*:\([0-9][0-9]*\)$/\1/'
+  service=$1
+  port=$2
+  docker-compose -f docker-compose.yml port $service $port | sed 's/.*:\([0-9][0-9]*\)$/\1/'
 }
 
 DOCKER_DYNAMO_DB_PORT=$(find_service_port dynamodb 8000)

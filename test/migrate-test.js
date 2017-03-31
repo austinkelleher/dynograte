@@ -216,5 +216,43 @@ describe('Migration table test', function() {
         });
       });
     });
+
+    it('it should retry migrations with retry set to true', () => {
+      let migrationDir = path.resolve(__dirname, './failing-retry-boolean-dynamodb-migrations');
+
+      return new Promise((resolve, reject) => {
+        return dynograte.migrate({
+          dynamodb,
+          migrationTableName: randomMigrationTableName,
+          migrationDir: migrationDir
+        }).catch((err) => {
+          expect(err.message).to.equal('This migration failed!');
+          return _scanDynamoTable(dynamodb, randomMigrationTableName)
+            .then((res) => {
+              expect(res.Items.length).to.equal(0);
+              resolve();
+            }).catch(reject);
+        });
+      });
+    });
+
+    it.only('it should retry migrations with retry set to object', () => {
+      let migrationDir = path.resolve(__dirname, './failing-retry-options-dynamodb-migrations');
+
+      return new Promise((resolve, reject) => {
+        return dynograte.migrate({
+          dynamodb,
+          migrationTableName: randomMigrationTableName,
+          migrationDir: migrationDir
+        }).catch((err) => {
+          expect(err.message).to.equal('This migration failed!');
+          return _scanDynamoTable(dynamodb, randomMigrationTableName)
+            .then((res) => {
+              expect(res.Items.length).to.equal(0);
+              resolve();
+            }).catch(reject);
+        });
+      });
+    });
   });
 });
