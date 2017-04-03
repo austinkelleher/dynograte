@@ -77,6 +77,61 @@ return dynograte.migrate({
 
 ```
 
+## Migration Retry
+
+Dynograte supports migration retries. Retrying a migration is usefuly for safe
+operations that fail and should be tried multiple times.
+
+> **NOTE**: Retrying a DynamoDB migration can be very dangerous. Use this feature
+> with caution. You should only retry migrations like creating a table.
+> Retrying a migration that alters a table could cause a partial table alter
+> that can be difficult to recover from. We recommend backing up your tables!
+
+Dynograte uses the [tri](https://github.com/austinkelleher/tri) module for
+retries. You can either export `true` and use the Dynograte default retry
+options, or specify your own:
+
+```js
+// My awesome migration that should retry
+exports.retry = true;
+
+exports.up = function(dynograte) {
+  ...
+};
+```
+
+```js
+// My awesome migration that should retry
+exports.retry = {
+  maxAttempts: 3,
+  delay: 100,
+  factor: 2,
+  jitter: true
+};
+
+exports.up = function(dynograte) {
+  ...
+};
+```
+
+Often times, when a database migration is part of the process startup-tasks,
+the process may be killed if a migration completely fails to run. The process
+may restart and we may want to retry it again when it comes back online.
+If your migration fails, Dynograte remembers that the migration has failed
+and stores that information in the migration table in DynamoDB.
+
+Dynograte allows you to export `runAfterFail` that will run a failed migration
+again the next time `dynograte.migrate(...)` is called:
+
+```js
+// My awesome migration that should retry
+exports.retryAfterFail = true;
+
+exports.up = function(dynograte) {
+  ...
+};
+```
+
 ## CLI
 
 Dynograte comes packaged with a CLI, which will auto-generate migration files.

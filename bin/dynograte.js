@@ -12,7 +12,8 @@ let argly = require('argly')
     },
     '--dir -d': {
       type: 'string',
-      description: 'Directory that contains the DynomoDB migrations'
+      description: 'Directory that contains the DynamoDB migrations',
+      defaultValue: process.cwd()
     },
     '--migration -m': {
       type: 'string',

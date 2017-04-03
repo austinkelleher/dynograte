@@ -50,9 +50,9 @@ describe('Migration table test', function() {
         .then(() => {
           return migrationTable.insert(fileName)
             .then((id) => {
-              return migrationTable.alreadyRan(fileName)
-                .then((alreadyRan) => {
-                  expect(alreadyRan).to.equal(true);
+              return migrationTable.shouldRun(fileName)
+                .then((shouldRun) => {
+                  expect(shouldRun).to.deep.equal({ exists: true, run: false });
                 });
             });
         });
@@ -62,9 +62,9 @@ describe('Migration table test', function() {
       let fileName = uuid.v4();
       return MigrationTable.create(dynamodb, randomTableName)
         .then(() => {
-          return migrationTable.alreadyRan(fileName)
-            .then((alreadyRan) => {
-              expect(alreadyRan).to.equal(false);
+          return migrationTable.shouldRun(fileName)
+            .then((shouldRun) => {
+              expect(shouldRun).to.deep.equal({ exists: false, run: true });
             });
           });
     });
