@@ -52,7 +52,25 @@ describe('Migration table test', function() {
             .then((id) => {
               return migrationTable.shouldRun(fileName)
                 .then((shouldRun) => {
-                  expect(shouldRun).to.deep.equal({ exists: true, run: false });
+                  expect(shouldRun).to.deep.equal({
+                    data: {
+                      Count: 1,
+                      Items: [{
+                        filename: {
+                          'S': fileName,
+                        },
+                        id: {
+                          'S': id
+                        },
+                        pending: {
+                          'BOOL': true
+                        }
+                      }],
+                      ScannedCount: 1
+                    },
+                    exists: true,
+                    run: false
+                  });
                 });
             });
         });
@@ -64,7 +82,15 @@ describe('Migration table test', function() {
         .then(() => {
           return migrationTable.shouldRun(fileName)
             .then((shouldRun) => {
-              expect(shouldRun).to.deep.equal({ exists: false, run: true });
+              expect(shouldRun).to.deep.equal({
+                data: {
+                  Count: 0,
+                  Items: [],
+                  ScannedCount: 0
+                },
+                exists: false,
+                run: true
+              });
             });
           });
     });

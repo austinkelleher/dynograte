@@ -1,6 +1,6 @@
 'use strict';
 
-exports.runAfterFail = true;
+exports.runNextMigrateAfterFail = true;
 
 // This is only used for testing:
 exports.timesRun = 0;

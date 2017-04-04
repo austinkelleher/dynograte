@@ -120,12 +120,13 @@ may restart and we may want to retry it again when it comes back online.
 If your migration fails, Dynograte remembers that the migration has failed
 and stores that information in the migration table in DynamoDB.
 
-Dynograte allows you to export `runAfterFail` that will run a failed migration
+Dynograte allows you to export `runNextMigrateAfterFail` that will run a failed migration
 again the next time `dynograte.migrate(...)` is called:
 
 ```js
-// My awesome migration that should retry
-exports.retryAfterFail = true;
+// My awesome migration that should run the next time the migrations run if it
+// failed to run previously.
+exports.runNextMigrateAfterFail = true;
 
 exports.up = function(dynograte) {
   ...

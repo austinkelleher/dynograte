@@ -60,7 +60,7 @@ function _createAndValidateSecondaryKey(dynamodb, tableName) {
   });
 }
 
-describe.only('Migration table test', function() {
+describe('Migration table test', function() {
   let randomTableName;
 
   beforeEach(() => {
@@ -273,8 +273,8 @@ describe.only('Migration table test', function() {
       });
     });
 
-    it('it should retry migrations the next time migrations run if runAfterFail set to true', () => {
-      let migrationDir = path.resolve(__dirname, './failing-runAfterFail-dynamodb-migrations');
+    it('it should retry migrations the next time migrations run if runNextMigrateAfterFail set to true', () => {
+      let migrationDir = path.resolve(__dirname, './failing-runNextMigrateAfterFail-dynamodb-migrations');
       let migrationFile = require(path.resolve(migrationDir, '2016-09-07-10-48-28-update-users-table'));
 
       return new Promise((resolve, reject) => {
