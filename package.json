@@ -1,6 +1,6 @@
 {
   "name": "dynograte",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "DynamoDB migration tool",
   "main": "index.js",
   "scripts": {
